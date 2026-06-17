@@ -23,19 +23,19 @@
     .btn.secondary{background:#34251b}.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}.btn.danger{background:var(--bad)}
     .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:14px}.card{background:rgba(255,250,241,.92);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
     .info{margin-top:18px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:13px;font-weight:800;color:var(--muted)} input,select,textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:11px 12px;font:inherit;color:var(--ink)} textarea{min-height:70px;resize:vertical}.col-3{grid-column:span 3}.col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-12{grid-column:span 12}
-    .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}.stat{padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line);text-align:center}.stat b{font-size:22px;display:block}.stat span{font-size:12px;color:var(--muted);font-weight:800}.ok{color:var(--ok)}.bad{color:var(--bad)}.na{color:var(--na)}
+    .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}.stat{padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line);text-align:center}.stat b{font-size:22px;display:block}.stat span{font-size:12px;color:var(--muted);font-weight:800}.ok{color:var(--ok)}.bad{color:var(--bad)}.na{color:var(--na)}
     .sections{margin-top:16px}.section{margin-bottom:16px;overflow:hidden}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:linear-gradient(135deg,#4a2418,var(--brand));color:#fff;border-radius:16px 16px 0 0}.section-head h2{font-size:16px;margin:0;text-transform:uppercase}.section-count{font-size:12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 10px;font-weight:900;white-space:nowrap}
     .items{background:var(--card);border:1px solid var(--line);border-top:0;border-radius:0 0 16px 16px}.item{display:grid;grid-template-columns:58px 1fr 320px;gap:12px;padding:14px;border-top:1px solid var(--line);align-items:start}.item:first-child{border-top:0}.no{font-weight:900;color:var(--brand);background:#fff;border:1px solid var(--line);border-radius:12px;text-align:center;padding:10px}.item-title{font-weight:800;line-height:1.35}.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.pill input{display:none}.pill span{display:block;text-align:center;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 8px;font-size:13px;font-weight:900;cursor:pointer}.pill input:checked + span.ok-bg{background:#eaf7ef;color:var(--ok);border-color:#a8dab9}.pill input:checked + span.bad-bg{background:#fff0ee;color:var(--bad);border-color:#f1b8b3}.pill input:checked + span.na-bg{background:#f2f4f7;color:var(--na);border-color:#cbd1d8}.note{grid-column:2/4;margin-top:-2px}.note input{padding:10px 12px}.summary-box{display:grid;grid-template-columns:1fr 1fr;gap:14px}.print-only{display:none}.footer-note{font-size:12px;color:var(--muted);text-align:center;margin:18px 0 40px}
     .floating{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:30}.floating .btn{box-shadow:0 12px 30px rgba(45,33,24,.2)}
-    @media(max-width:900px){.hero-inner{align-items:flex-start;flex-direction:column}.quick-actions{justify-content:flex-start}.col-3,.col-4,.col-6{grid-column:span 12}.stats{grid-template-columns:repeat(2,1fr)}.item{grid-template-columns:44px 1fr;gap:10px}.controls{grid-column:1/3}.note{grid-column:1/3}.floating{left:12px;right:12px}.floating .btn{flex:1}.brand h1{font-size:18px}}
+    @media(max-width:900px){.hero-inner{align-items:flex-start;flex-direction:column}.quick-actions{justify-content:flex-start}.col-3,.col-4,.col-6{grid-column:span 12}.stats{grid-template-columns:repeat(2,1fr)}.item{grid-template-columns:44px 1fr;gap:10px}.controls{grid-column:1/3}.note{grid-column:1/3}.floating{left:12px;right:12px}.floating .btn{flex:1}.brand h1{font-size:18px}.report-summary{grid-template-columns:repeat(2,1fr)}.report-head{flex-direction:column}.report-actions{justify-content:flex-start}.report-card{margin:8px auto;padding:14px}}
     @media print{body{background:#fff;color:#000}.hero,.floating,.quick-actions,.no-print{display:none!important}.wrap{max-width:none;padding:0}.card{box-shadow:none;border:0;border-radius:0;padding:0}.info{margin-top:0}.print-only{display:block}.print-title{text-align:center;text-transform:uppercase;font-size:22px;font-weight:900;margin-bottom:10px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.field label{font-size:10px}.field input,.field select,.field textarea{border:0;border-bottom:1px solid #000;border-radius:0;padding:4px;background:#fff}.stats{display:flex;gap:6px;margin:8px 0}.stat{border:1px solid #000;border-radius:0;padding:5px}.stat b{font-size:14px}.section{page-break-inside:auto;margin-bottom:6px}.section-head{background:#eee!important;color:#000;border:1px solid #000;border-radius:0;padding:6px 8px}.section-head h2{font-size:12px}.section-count{display:none}.items{border:1px solid #000;border-top:0;border-radius:0}.item{display:grid;grid-template-columns:34px 1fr 90px 90px 120px;gap:0;border-top:1px solid #000;padding:0;min-height:28px}.no{border:0;border-right:1px solid #000;border-radius:0;padding:6px 3px;background:#fff;color:#000;font-size:11px}.item-title{padding:6px;font-size:11px;font-weight:400;border-right:1px solid #000}.controls{display:contents}.pill span{border:0;border-right:1px solid #000;border-radius:0;padding:6px 2px;font-size:11px;background:#fff!important;color:#000!important}.pill input:not(:checked)+span::after{content:""}.pill input:checked+span::after{content:"✓";font-weight:900;font-size:14px}.pill input:checked+span{font-size:0}.note{grid-column:auto;margin:0}.note input{border:0;border-radius:0;padding:6px;font-size:10px}.note input::placeholder{color:transparent}.summary-box{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.footer-note{display:none} @page{size:A4;margin:10mm}}
   </style>
 </head>
 <body>
   <div class="hero">
     <div class="hero-inner">
-      <div class="brand"><div class="seal">HT</div><div><h1>Checklist kiểm tra vệ sinh định kỳ</h1><div class="subtitle">6 chi nhánh · Tick nhanh trên điện thoại · Xuất PDF báo cáo</div></div></div>
-      <div class="quick-actions"><button class="btn ghost" onclick="saveDraft()">Lưu tạm</button><button class="btn secondary" onclick="copyReport()">Copy báo cáo</button><button class="btn" onclick="window.print()">Xuất PDF</button></div>
+      <div class="brand"><div class="seal">HT</div><div><h1>Checklist kiểm tra vệ sinh định kỳ</h1><div class="subtitle">6 chi nhánh · 68 hạng mục thực tế · Hoàn tất ra bảng báo cáo</div></div></div>
+      <div class="quick-actions"><button class="btn ghost" onclick="saveDraft()">Lưu tạm</button><button class="btn secondary" onclick="showFinalReport()">Xem bảng báo cáo</button><button class="btn" onclick="finishReport()">HOÀN TẤT BÁO CÁO</button></div>
     </div>
   </div>
   <main class="wrap">
@@ -62,11 +62,31 @@
         <div class="field col-6"><label>Chữ ký người kiểm tra</label><input placeholder="Ký tên / ghi họ tên khi in PDF" /></div>
         <div class="field col-6"><label>Xác nhận quản lý chi nhánh</label><input placeholder="Ký tên / ghi họ tên khi in PDF" /></div>
       </div>
-      <div class="quick-actions no-print" style="margin-top:16px;justify-content:flex-start"><button class="btn" onclick="window.print()">Xuất PDF báo cáo</button><button class="btn ghost" onclick="downloadJson()">Tải dữ liệu JSON</button><button class="btn danger" onclick="clearForm()">Xóa form</button></div>
+      <div class="quick-actions no-print" style="margin-top:16px;justify-content:flex-start"><button class="btn" onclick="finishReport()">HOÀN TẤT BÁO CÁO</button><button class="btn ghost" onclick="showFinalReport()">Xem bảng báo cáo</button><button class="btn ghost" onclick="downloadJson()">Tải dữ liệu JSON</button><button class="btn danger" onclick="clearForm()">Xóa form</button></div>
     </div>
     <p class="footer-note">Hoàng Ty / Cơm Gà Thượng Hải · Website: hoangty.vn · Hotline: 1900 0091</p>
   </main>
-  <div class="floating no-print"><button class="btn secondary" onclick="scrollToFirstBad()">Xem lỗi</button><button class="btn" onclick="window.print()">PDF</button></div>
+  <div class="floating no-print"><button class="btn secondary" onclick="scrollToFirstBad()">Xem lỗi</button><button class="btn" onclick="finishReport()">Hoàn tất</button></div>
+
+  <div class="report-panel no-print" id="reportPanel" onclick="if(event.target.id==='reportPanel') closeReport()">
+    <div class="report-card">
+      <div class="report-head">
+        <div>
+          <h2>Bảng kết quả gửi group</h2>
+          <div class="subtitle">Chỉ hiện phần tổng kết và các mục không đạt, không bung PDF dài.</div>
+        </div>
+        <div class="report-actions">
+          <button class="btn" onclick="copyReport()">Copy gửi WhatsApp</button>
+          <button class="btn ghost" onclick="closeReport()">Đóng</button>
+        </div>
+      </div>
+      <div id="reportResult"></div>
+      <label class="field" style="margin-top:12px">
+        <span style="font-size:13px;font-weight:800;color:var(--muted)">Nội dung copy gửi group</span>
+        <textarea class="whatsapp-text" id="whatsappText" readonly></textarea>
+      </label>
+    </div>
+  </div>
 <script>
 const branches = [
   'Hoàng Ty 74 Trương Quốc Dung - Phường Phú Nhuận, TP.HCM',
@@ -136,9 +156,16 @@ function setData(data){
   (data.items||[]).forEach(it=>{ if(it.status){ const r=document.querySelector(`input[name="st_${it.id}"][value="${it.status}"]`); if(r) r.checked=true;} const n=document.querySelector(`input[name="note_${it.id}"]`); if(n) n.value=it.note||''; });
 }
 function updateStats(){
-  const d=getData(); const total=d.items.length, ok=d.items.filter(i=>i.status==='Đạt').length, bad=d.items.filter(i=>i.status==='Không đạt').length, na=d.items.filter(i=>i.status==='N/A').length, pending=total-ok-bad-na;
-  const score = total-na ? Math.round(ok/(total-na)*100) : 0;
-  $('stats').innerHTML=`<div class="stat"><b>${total}</b><span>Tổng mục</span></div><div class="stat"><b class="ok">${ok}</b><span>Đạt</span></div><div class="stat"><b class="bad">${bad}</b><span>Không đạt</span></div><div class="stat"><b class="na">${na}</b><span>N/A</span></div><div class="stat"><b>${score}%</b><span>Điểm đạt</span></div>`;
+  const d=getData();
+  const total=d.items.length;
+  const ok=d.items.filter(i=>i.status==='Đạt').length;
+  const bad=d.items.filter(i=>i.status==='Không đạt').length;
+  const na=d.items.filter(i=>i.status==='N/A').length;
+  const pending=total-ok-bad-na;
+  const checked=ok+bad;
+  const denominator=total-na;
+  const score = denominator ? Math.round(ok/denominator*100) : 0;
+  $('stats').innerHTML=`<div class="stat"><b>${total}</b><span>Tổng hạng mục</span></div><div class="stat"><b>${checked}/${denominator}</b><span>Đã kiểm</span></div><div class="stat"><b class="ok">${ok}</b><span>Đạt</span></div><div class="stat"><b class="bad">${bad}</b><span>Không đạt</span></div><div class="stat"><b class="na">${na}</b><span>N/A bỏ qua</span></div><div class="stat"><b>${score}%</b><span>Tỷ lệ đạt</span></div>`;
 }
 let saveTimer; function autoSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(()=>localStorage.setItem('ht_clean_checklist',JSON.stringify(getData())),400); }
 function saveDraft(){ localStorage.setItem('ht_clean_checklist',JSON.stringify(getData())); alert('Đã lưu tạm trên máy này.'); }
@@ -146,7 +173,7 @@ function loadDraft(){ const raw=localStorage.getItem('ht_clean_checklist'); if(r
 function clearForm(){ if(!confirm('Xóa toàn bộ nội dung đang tick?')) return; localStorage.removeItem('ht_clean_checklist'); document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false); document.querySelectorAll('input[name^="note_"]').forEach(i=>i.value=''); ['inspector','owner','deadline','conclusion','actionPlan'].forEach(id=>$(id).value=''); $('branch').value=''; $('date').value=new Date().toISOString().slice(0,10); updateStats(); }
 function downloadJson(){ const d=getData(); const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`checklist-ve-sinh-${(d.branch||'chi-nhanh').replace(/\W+/g,'-')}-${d.date||''}.json`; a.click(); URL.revokeObjectURL(a.href); }
 function reportText(){ const d=getData(); const bad=d.items.filter(i=>i.status==='Không đạt'); const ok=d.items.filter(i=>i.status==='Đạt').length; const na=d.items.filter(i=>i.status==='N/A').length; const total=d.items.length; let txt=`BÁO CÁO CHECKLIST VỆ SINH\nChi nhánh: ${d.branch}\nNgày: ${d.date} - Ca: ${d.shift}\nNgười kiểm tra: ${d.inspector}\nKết quả: Đạt ${ok}/${total-na} mục, Không đạt ${bad.length} mục, N/A ${na} mục\nMức độ: ${d.level}\n`; if(bad.length){ txt+=`\nCÁC MỤC KHÔNG ĐẠT:\n`+bad.map(i=>`- ${i.id}. ${i.text}${i.note?` | Ghi chú: ${i.note}`:''}`).join('\n'); } txt+=`\n\nKết luận: ${d.conclusion||''}\nYêu cầu khắc phục: ${d.actionPlan||''}\nPhụ trách: ${d.owner||''}\nHạn xử lý: ${d.deadline||''}`; return txt; }
-async function copyReport(){ try{ await navigator.clipboard.writeText(reportText()); alert('Đã copy báo cáo. Dán vào Zalo/group là được.'); } catch(e){ prompt('Copy báo cáo:', reportText()); } }
+async function copyReport(){ try{ await navigator.clipboard.writeText(reportText()); alert('Đã copy báo cáo. Dán vào WhatsApp/group là được.'); } catch(e){ prompt('Copy báo cáo:', reportText()); } }
 function scrollToFirstBad(){ const bad=document.querySelector('input[value="Không đạt"]:checked'); if(!bad){alert('Chưa có mục Không đạt.'); return;} bad.closest('.item').scrollIntoView({behavior:'smooth',block:'center'}); }
 init();
 </script>
