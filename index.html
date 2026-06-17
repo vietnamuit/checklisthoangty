@@ -7,672 +7,90 @@
   <meta name="description" content="Checklist kiểm tra vệ sinh định kỳ cho 6 chi nhánh Hoàng Ty và Cơm Gà Thượng Hải" />
   <style>
     :root{
-      --bg:#f6f2ea;
-      --bg2:#efe6d8;
-      --card:#fffaf1;
-      --white:#ffffff;
-      --ink:#2d2118;
-      --muted:#736457;
-      --line:#e2d5c5;
-      --brand:#7b2f17;
-      --brand-dark:#3d1a10;
-      --bad:#b42318;
-      --ok:#147a3d;
-      --na:#667085;
-      --shadow:0 18px 50px rgba(45,33,24,.12);
-      --radius:18px;
+      --bg:#f7f0e6; --card:#fffaf3; --white:#fff; --ink:#2e2118; --muted:#75665a; --line:#e2d4c4;
+      --brand:#883219; --dark:#342219; --bad:#b42318; --ok:#157347; --na:#667085;
+      --shadow:0 14px 40px rgba(46,33,24,.10); --r:18px;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      color:var(--ink);
-      background:radial-gradient(circle at top left,#fff7e6 0,var(--bg) 38%,var(--bg2) 100%);
-    }
-    .wrap{max-width:1180px;margin:0 auto;padding:20px}
-    .hero{
-      position:sticky;top:0;z-index:20;
-      padding:14px 0 10px;
-      backdrop-filter:blur(14px);
-      background:rgba(246,242,234,.88);
-      border-bottom:1px solid rgba(226,213,197,.7)
-    }
-    .hero-inner{max-width:1180px;margin:0 auto;padding:0 20px;display:flex;gap:16px;align-items:center;justify-content:space-between}
-    .brand{display:flex;gap:12px;align-items:center}
-    .seal{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;letter-spacing:.5px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));box-shadow:0 8px 24px rgba(123,47,23,.28)}
-    h1{font-size:22px;line-height:1.1;margin:0;text-transform:uppercase;letter-spacing:.4px}
-    .subtitle{font-size:13px;color:var(--muted);margin-top:4px}
-    .quick-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
-    .btn{appearance:none;border:0;border-radius:999px;padding:11px 14px;font-weight:800;cursor:pointer;color:#fff;background:var(--brand);box-shadow:0 8px 18px rgba(123,47,23,.2)}
-    .btn.secondary{background:#34251b}
-    .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
-    .btn.danger{background:var(--bad)}
-    .btn:disabled{opacity:.55;cursor:not-allowed}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-    .card{background:rgba(255,250,241,.92);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-    .info{margin-top:18px}
-    .field{display:flex;flex-direction:column;gap:6px}
-    .field label{font-size:13px;font-weight:800;color:var(--muted)}
-    input,select,textarea{width:100%;border:1px solid var(--line);border-radius:12px;background:#fff;padding:11px 12px;font:inherit;color:var(--ink)}
-    textarea{min-height:76px;resize:vertical}
-    .col-3{grid-column:span 3}.col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-12{grid-column:span 12}
-    .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
-    .stat{padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line);text-align:center}
-    .stat b{font-size:22px;display:block}
-    .stat span{font-size:12px;color:var(--muted);font-weight:800}
-    .ok{color:var(--ok)}.bad{color:var(--bad)}.na{color:var(--na)}
-    .sections{margin-top:16px}.section{margin-bottom:16px;overflow:hidden}
-    .section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:linear-gradient(135deg,#4a2418,var(--brand));color:#fff;border-radius:16px 16px 0 0}
-    .section-head h2{font-size:16px;margin:0;text-transform:uppercase}
-    .section-count{font-size:12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 10px;font-weight:900;white-space:nowrap}
-    .items{background:var(--card);border:1px solid var(--line);border-top:0;border-radius:0 0 16px 16px}
-    .item{display:grid;grid-template-columns:58px 1fr 320px;gap:12px;padding:14px;border-top:1px solid var(--line);align-items:start}
-    .item:first-child{border-top:0}
-    .no{font-weight:900;color:var(--brand);background:#fff;border:1px solid var(--line);border-radius:12px;text-align:center;padding:10px}
-    .item-title{font-weight:800;line-height:1.35}
-    .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-    .pill input{display:none}
-    .pill span{display:block;text-align:center;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 8px;font-size:13px;font-weight:900;cursor:pointer}
-    .pill input:checked + span.ok-bg{background:#eaf7ef;color:var(--ok);border-color:#a8dab9}
-    .pill input:checked + span.bad-bg{background:#fff0ee;color:var(--bad);border-color:#f1b8b3}
-    .pill input:checked + span.na-bg{background:#f2f4f7;color:var(--na);border-color:#cbd1d8}
-    .note{grid-column:2/4;margin-top:-2px}
-    .note input{padding:10px 12px}
-    .summary-box{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .footer-note{font-size:12px;color:var(--muted);text-align:center;margin:18px 0 40px}
-    .floating{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:30}
-    .floating .btn{box-shadow:0 12px 30px rgba(45,33,24,.2)}
-
-    .report-panel{position:fixed;inset:0;background:rgba(45,33,24,.62);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:18px;overflow:auto}
-    .report-panel.show{display:flex}
-    .report-card{width:min(1080px,100%);background:#fffaf1;border:1px solid var(--line);border-radius:22px;box-shadow:0 22px 80px rgba(0,0,0,.28);padding:18px;margin:28px auto}
-    .report-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:14px}
-    .report-head h2{margin:0;text-transform:uppercase;font-size:20px}
-    .report-head p{margin:5px 0 0;color:var(--muted);font-size:13px;max-width:520px}
-    .report-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
-    .report-note{font-size:12px;color:var(--muted);margin-top:8px}
-
-    .capture-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
-    .report-capture{background:linear-gradient(180deg,#fffaf1 0%,#fff 100%);border:1px solid var(--line);border-radius:22px;padding:20px}
-    .capture-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:12px}
-    .capture-brand{display:flex;gap:10px;align-items:center}
-    .capture-brand .mini-seal{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-weight:900}
-    .capture-brand h3{margin:0;font-size:16px;text-transform:uppercase;line-height:1.15}
-    .capture-brand p{margin:4px 0 0;font-size:11px;color:var(--muted)}
-    .capture-status{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:900;white-space:nowrap}
-    .capture-summary{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:12px 0}
-    .capture-tile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 8px;text-align:center}
-    .capture-tile b{display:block;font-size:26px;line-height:1;color:var(--ink);margin-bottom:6px}
-    .capture-tile span{font-size:12px;color:var(--muted);font-weight:900;line-height:1.3;display:block}
-    .capture-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .capture-block{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
-    .capture-block h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.2px}
-    .capture-meta-line{margin:5px 0;line-height:1.35}
-    .capture-warning{color:var(--bad);font-weight:900;margin-top:8px}
-    .capture-list{margin:0;padding-left:20px;line-height:1.38}
-    .capture-list.columns-2{columns:2;column-gap:22px}
-    .capture-list li{margin:0 0 7px;break-inside:avoid}
-    .capture-list .note-text{display:block;color:var(--muted);font-size:12px;margin-top:3px}
-    .capture-footer{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);padding-top:10px;margin-top:12px;font-size:11px;color:var(--muted)}
-
-    .preview-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;position:sticky;top:8px}
-    .preview-card h3{margin:0 0 10px;font-size:15px;text-transform:uppercase}
-    .preview-box{background:#f7f7f7;border:1px dashed #d7c7b7;border-radius:14px;min-height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .preview-box img{display:block;max-width:100%;height:auto}
-    .preview-placeholder{padding:18px;text-align:center;color:var(--muted);font-size:13px;line-height:1.5}
-    .preview-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .preview-actions .btn{flex:1}
-    .share-tip{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.45}
-    .text-copy{margin-top:12px}
-    .text-copy textarea{min-height:170px;font-family:Arial,Helvetica,sans-serif;white-space:pre-wrap}
-
-    .loading-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:12px;font-weight:800;color:var(--muted)}
-    .spinner{width:14px;height:14px;border-radius:50%;border:2px solid #d9cab9;border-top-color:var(--brand);animation:spin .8s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    @media(max-width:980px){
-      .hero-inner{align-items:flex-start;flex-direction:column}
-      .quick-actions{justify-content:flex-start}
-      .col-3,.col-4,.col-6{grid-column:span 12}
-      .stats{grid-template-columns:repeat(2,1fr)}
-      .item{grid-template-columns:44px 1fr;gap:10px}
-      .controls{grid-column:1/3}
-      .note{grid-column:1/3}
-      .floating{left:12px;right:12px}
-      .floating .btn{flex:1}
-      .brand h1{font-size:18px}
-      .report-card{margin:8px auto;padding:14px}
-      .report-head{flex-direction:column}
-      .report-actions{justify-content:flex-start}
-      .capture-wrap{grid-template-columns:1fr}
-      .preview-card{position:static}
-      .capture-summary{grid-template-columns:repeat(2,1fr)}
-      .capture-grid{grid-template-columns:1fr}
-      .capture-list.columns-2{columns:1}
-    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fbf4e9 0%,#f4ecdf 100%)}
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(247,240,230,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .top-inner{max-width:1180px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}.logo{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--brand),#3b160c);color:#fff;font-weight:900;display:grid;place-items:center;flex:0 0 auto;box-shadow:0 8px 18px rgba(136,50,25,.24)}
+    .title{min-width:0}.title h1{margin:0;font-size:20px;line-height:1.12;text-transform:uppercase;letter-spacing:.3px}.title p{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.25}
+    .top-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}.btn{border:0;border-radius:999px;padding:11px 15px;font-weight:900;cursor:pointer;background:var(--brand);color:#fff;box-shadow:0 8px 18px rgba(136,50,25,.18);font-size:14px}.btn.dark{background:var(--dark)}.btn.light{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}.btn.red{background:var(--bad)}.btn:disabled{opacity:.55;cursor:not-allowed}
+    .wrap{max-width:1180px;margin:0 auto;padding:18px}.card{background:rgba(255,250,243,.96);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;margin-bottom:14px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:13px;font-weight:900;color:var(--muted)}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:#fff;padding:12px 13px;font:inherit;color:var(--ink)}textarea{min-height:78px;resize:vertical}.col-3{grid-column:span 3}.col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-12{grid-column:span 12}
+    .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;text-align:center;padding:13px 8px}.stat b{display:block;font-size:23px;line-height:1}.stat span{display:block;margin-top:7px;color:var(--muted);font-size:12px;font-weight:900}.ok{color:var(--ok)}.bad{color:var(--bad)}.na{color:var(--na)}
+    .section{overflow:hidden;margin-bottom:14px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(135deg,#4a2418,var(--brand));color:#fff;padding:13px 15px;border-radius:16px 16px 0 0}.section-head h2{font-size:15px;text-transform:uppercase;margin:0}.section-count{font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.14);white-space:nowrap}.items{background:var(--card);border:1px solid var(--line);border-top:0;border-radius:0 0 16px 16px}.item{display:grid;grid-template-columns:54px 1fr 315px;gap:12px;padding:14px;border-top:1px solid var(--line);align-items:start}.item:first-child{border-top:0}.no{background:#fff;border:1px solid var(--line);border-radius:12px;text-align:center;padding:10px 6px;font-weight:900;color:var(--brand)}.item-title{font-weight:800;line-height:1.36}.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.pill input{display:none}.pill span{display:block;text-align:center;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 8px;font-size:13px;font-weight:900;cursor:pointer}.pill input:checked+span.ok-bg{background:#eaf7ef;color:var(--ok);border-color:#a8dab9}.pill input:checked+span.bad-bg{background:#fff0ee;color:var(--bad);border-color:#f1b8b3}.pill input:checked+span.na-bg{background:#f2f4f7;color:var(--na);border-color:#cbd1d8}.note{grid-column:2/4}.note input{padding:10px 12px}.bottom-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.footer{font-size:12px;color:var(--muted);text-align:center;margin:20px 0 70px}
+    .float{position:fixed;left:14px;right:14px;bottom:12px;z-index:40;display:none;gap:8px}.float .btn{flex:1}.modal{position:fixed;inset:0;background:rgba(46,33,24,.62);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:16px;overflow:auto}.modal.show{display:flex}.modal-card{width:min(980px,100%);background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 70px rgba(0,0,0,.30);padding:18px;margin:24px auto}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:14px}.modal-head h2{margin:0;text-transform:uppercase;font-size:20px}.modal-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.modal-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.report-preview{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.report-title{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:12px}.report-title h3{margin:0;text-transform:uppercase;font-size:18px}.report-title small{color:var(--muted);font-weight:800}.report-summary{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:12px 0}.tile{border:1px solid var(--line);border-radius:16px;text-align:center;padding:12px 6px}.tile b{font-size:25px;display:block}.tile span{font-size:12px;color:var(--muted);font-weight:900}.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.report-block{border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px}.report-block h4{margin:0 0 8px;text-transform:uppercase;font-size:13px}.bad-list{margin:0;padding-left:22px;line-height:1.42}.bad-list li{margin:0 0 7px}.tip{color:var(--muted);font-size:12px;line-height:1.45;margin-top:10px}.pdf-area{background:#fff;color:#111;padding:26px;width:794px;max-width:794px;font-family:Arial,Helvetica,sans-serif}.pdf-head{display:flex;justify-content:space-between;gap:16px;border-bottom:2px solid #ddd;padding-bottom:12px;margin-bottom:12px}.pdf-head h1{font-size:22px;margin:0;text-transform:uppercase}.pdf-head p{margin:5px 0 0;color:#555}.pdf-pill{border:1px solid #ddd;border-radius:999px;padding:8px 12px;font-weight:900;height:max-content}.pdf-summary{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}.pdf-tile{border:1px solid #ddd;border-radius:10px;padding:10px;text-align:center}.pdf-tile b{font-size:22px;display:block}.pdf-tile span{font-size:11px;color:#555;font-weight:900}.pdf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pdf-block{border:1px solid #ddd;border-radius:10px;padding:12px;margin-top:10px}.pdf-block h2{font-size:13px;text-transform:uppercase;margin:0 0 8px}.pdf-list{margin:0;padding-left:18px}.pdf-list li{margin-bottom:6px;line-height:1.35}.pdf-foot{border-top:1px solid #ddd;margin-top:12px;padding-top:8px;font-size:11px;color:#555;display:flex;justify-content:space-between}.hidden-pdf{position:absolute;left:-99999px;top:0}
+    @media(max-width:820px){.topbar{position:relative}.top-inner{padding:12px 16px;display:grid;grid-template-columns:auto 1fr;align-items:start}.brand{grid-column:1/3}.logo{width:40px;height:40px}.title h1{font-size:18px;line-height:1.12}.title p{font-size:12.5px}.top-actions{grid-column:1/3;justify-content:flex-start;display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:10px}.top-actions .btn{width:100%;padding:10px 12px;font-size:13px}.top-actions .btn.primary-wide{grid-column:1/3}.wrap{padding:12px}.card{padding:14px}.col-3,.col-4,.col-6{grid-column:span 12}.stats{grid-template-columns:repeat(2,1fr)}.item{grid-template-columns:42px 1fr;gap:10px;padding:12px}.controls{grid-column:1/3}.note{grid-column:1/3}.section-head h2{font-size:13px}.float{display:flex}.bottom-actions .btn{flex:1}.modal-card{padding:14px;margin:8px auto}.modal-head{flex-direction:column}.modal-actions{justify-content:flex-start}.modal-actions .btn{flex:1}.report-summary{grid-template-columns:repeat(2,1fr)}.report-grid{grid-template-columns:1fr}.report-title{flex-direction:column}.pdf-area{width:794px;max-width:794px}.footer{margin-bottom:90px}}
   </style>
 </head>
 <body>
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="brand">
-        <div class="seal">HT</div>
-        <div>
-          <h1>Checklist kiểm tra vệ sinh định kỳ</h1>
-          <div class="subtitle">6 chi nhánh · Tick nhanh trên điện thoại · Hoàn tất ra báo cáo ảnh gửi WhatsApp</div>
-        </div>
-      </div>
-      <div class="quick-actions">
-        <button class="btn ghost" onclick="saveDraft()">Lưu tạm</button>
-        <button class="btn secondary" onclick="showFinalReport()">Xem báo cáo</button>
-        <button class="btn ghost" onclick="clearForm()">Làm mới</button>
-        <button class="btn" onclick="finishReport()">HOÀN TẤT BÁO CÁO</button>
-      </div>
+  <div class="topbar">
+    <div class="top-inner">
+      <div class="brand"><div class="logo">HT</div><div class="title"><h1>Checklist vệ sinh định kỳ</h1><p>6 chi nhánh · kiểm nhanh trên điện thoại · xuất PDF báo cáo gửi WhatsApp</p></div></div>
+      <div class="top-actions"><button class="btn light" onclick="saveDraft()">Lưu tạm</button><button class="btn dark" onclick="showReport()">Xem báo cáo</button><button class="btn light" onclick="clearForm()">Làm mới</button><button class="btn primary-wide" onclick="finishReport()">HOÀN TẤT BÁO CÁO</button></div>
     </div>
   </div>
-
   <main class="wrap">
-    <div class="card info">
+    <div class="card">
       <div class="grid">
         <div class="field col-4"><label>Chi nhánh</label><select id="branch"><option value="">-- Chọn chi nhánh --</option></select></div>
-        <div class="field col-4"><label>Người kiểm tra</label><input id="inspector" placeholder="Nhập tên người kiểm tra" /></div>
-        <div class="field col-4"><label>Ngày kiểm tra</label><input id="date" type="date" /></div>
+        <div class="field col-4"><label>Người kiểm tra</label><input id="inspector" placeholder="Nhập tên người kiểm tra"></div>
+        <div class="field col-4"><label>Ngày kiểm tra</label><input id="date" type="date"></div>
         <div class="field col-3"><label>Ca kiểm tra</label><select id="shift"><option>Sáng</option><option>Trưa</option><option>Tối</option><option>Đột xuất</option></select></div>
-        <div class="field col-3"><label>Người/nhóm phụ trách xử lý</label><input id="owner" placeholder="VD: QL chi nhánh / Bếp / GS" /></div>
-        <div class="field col-3"><label>Hạn xử lý</label><input id="deadline" type="date" /></div>
+        <div class="field col-3"><label>Người/nhóm phụ trách xử lý</label><input id="owner" placeholder="VD: QL chi nhánh / bếp / GS"></div>
+        <div class="field col-3"><label>Hạn xử lý</label><input id="deadline" type="date"></div>
         <div class="field col-3"><label>Mức độ</label><select id="level"><option>Bình thường</option><option>Cần khắc phục ngay</option><option>Khẩn</option></select></div>
       </div>
-
       <div class="stats" id="stats"></div>
-
-      <div class="sections" id="sections"></div>
-
-      <div class="summary-box">
-        <div class="field"><label>Kết luận chung</label><textarea id="conclusion" placeholder="Nhận xét tổng quan sau kiểm tra..."></textarea></div>
-        <div class="field"><label>Yêu cầu khắc phục / Ghi chú bàn giao</label><textarea id="actionPlan" placeholder="Ghi rõ việc cần làm, ai phụ trách, hạn xử lý..."></textarea></div>
-      </div>
-
-      <div class="quick-actions" style="margin-top:16px;justify-content:flex-start">
-        <button class="btn" onclick="finishReport()">HOÀN TẤT BÁO CÁO</button>
-        <button class="btn ghost" onclick="showFinalReport()">Xem báo cáo</button>
-        <button class="btn ghost" onclick="downloadJson()">Tải dữ liệu JSON</button>
-        <button class="btn danger" onclick="clearForm()">Làm mới</button>
-      </div>
+      <div id="sections"></div>
+      <div class="grid" style="margin-top:14px"><div class="field col-6"><label>Kết luận chung</label><textarea id="conclusion" placeholder="Nhận xét tổng quan sau kiểm tra..."></textarea></div><div class="field col-6"><label>Yêu cầu khắc phục / Ghi chú bàn giao</label><textarea id="actionPlan" placeholder="Ghi rõ việc cần làm, ai phụ trách, hạn xử lý..."></textarea></div></div>
+      <div class="bottom-actions"><button class="btn" onclick="finishReport()">HOÀN TẤT BÁO CÁO</button><button class="btn light" onclick="showReport()">Xem báo cáo</button><button class="btn light" onclick="downloadJson()">Tải JSON</button><button class="btn red" onclick="clearForm()">Làm mới</button></div>
     </div>
-    <p class="footer-note">Hoàng Ty / Cơm Gà Thượng Hải · Website: hoangty.vn · Hotline: 1900 0091</p>
+    <p class="footer">Hoàng Ty / Cơm Gà Thượng Hải · Website: hoangty.vn · Hotline: 1900 0091</p>
   </main>
-
-  <div class="floating">
-    <button class="btn secondary" onclick="scrollToFirstBad()">Xem lỗi</button>
-    <button class="btn ghost" onclick="clearForm()">Làm mới</button>
-    <button class="btn" onclick="finishReport()">Hoàn tất</button>
-  </div>
-
-  <div class="report-panel" id="reportPanel" onclick="if(event.target.id==='reportPanel') closeReport()">
-    <div class="report-card">
-      <div class="report-head">
-        <div>
-          <h2>Bảng kết quả gửi WhatsApp</h2>
-          <p>Bấm Hoàn Tất sẽ ra bảng tổng kết gọn. Hệ thống sẽ tạo sẵn 1 tấm hình báo cáo để mày tải hoặc chia sẻ qua WhatsApp.</p>
-          <div class="report-note">Lưu ý: trình duyệt không thể tự nhảy thẳng vào một group WhatsApp cố định. Bản này sẽ mở bảng tổng kết, tạo ảnh, rồi mày bấm gửi/chia sẻ qua WhatsApp.</div>
-        </div>
-        <div class="report-actions">
-          <button class="btn" id="btnGenerateImage" onclick="generateReportImage(true)">Tạo ảnh báo cáo</button>
-          <button class="btn secondary" id="btnShareWhatsApp" onclick="shareReportImage()">Gửi ảnh WhatsApp</button>
-          <button class="btn ghost" onclick="copyReport()">Copy nội dung</button>
-          <button class="btn ghost" onclick="closeReport()">Đóng</button>
-        </div>
-      </div>
-
-      <div class="capture-wrap">
-        <div>
-          <div id="reportCapture" class="report-capture"></div>
-        </div>
-        <div class="preview-card">
-          <h3>Ảnh báo cáo</h3>
-          <div class="preview-box" id="previewBox">
-            <div class="preview-placeholder" id="previewPlaceholder">Bấm <b>Hoàn tất báo cáo</b> hoặc <b>Tạo ảnh báo cáo</b> để tạo 1 tấm hình tổng kết gọn rồi gửi WhatsApp.</div>
-            <img id="reportPreview" alt="Ảnh báo cáo" style="display:none" />
-          </div>
-          <div class="preview-actions">
-            <button class="btn" id="btnDownloadImage" onclick="downloadReportImage()" disabled>Tải ảnh</button>
-            <button class="btn secondary" id="btnShareImage2" onclick="shareReportImage()" disabled>Chia sẻ ảnh</button>
-          </div>
-          <div id="imageStatus" class="share-tip">Ảnh chưa được tạo.</div>
-          <div class="share-tip">Nếu iPhone hỗ trợ chia sẻ file, bấm <b>Chia sẻ ảnh</b> rồi chọn <b>WhatsApp</b>. Nếu không, bấm <b>Tải ảnh</b> rồi gửi thủ công vào group.</div>
-          <div class="text-copy">
-            <label class="field">
-              <span style="font-size:13px;font-weight:800;color:var(--muted)">Nội dung text để dán vào WhatsApp (nếu cần)</span>
-              <textarea id="whatsappText" readonly></textarea>
-            </label>
-          </div>
-        </div>
-      </div>
+  <div class="float"><button class="btn dark" onclick="scrollToFirstBad()">Xem lỗi</button><button class="btn light" onclick="clearForm()">Làm mới</button><button class="btn" onclick="finishReport()">Hoàn tất</button></div>
+  <div class="modal" id="modal" onclick="if(event.target.id==='modal') closeReport()">
+    <div class="modal-card">
+      <div class="modal-head"><div><h2>Báo cáo PDF gửi WhatsApp</h2><p>Báo cáo chỉ gồm thông tin tổng kết và các mục không đạt, không xuất full checklist dài.</p><div class="tip">Nút gửi WhatsApp sẽ dùng chức năng chia sẻ file của điện thoại. Nếu trình duyệt không hỗ trợ, hệ thống sẽ tải PDF xuống để mày gửi thủ công vào group.</div></div><div class="modal-actions"><button class="btn" onclick="sharePdfWhatsApp()">Gửi PDF WhatsApp</button><button class="btn dark" onclick="downloadPdf()">Tải PDF</button><button class="btn light" onclick="closeReport()">Đóng</button></div></div>
+      <div id="reportPreview" class="report-preview"></div>
     </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <div class="hidden-pdf"><div id="pdfReport" class="pdf-area"></div></div>
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
   <script>
-    const branches = [
-      'Hoàng Ty 74 Trương Quốc Dung - Phường Phú Nhuận, TP.HCM',
-      'Hoàng Ty 01 Nguyễn Hữu Cầu - Phường Tân Định, TP.HCM',
-      'Hoàng Ty 32 Hoa Mai - Phường Cầu Kiệu, TP.HCM',
-      'Hoàng Ty 38 Mạc Đĩnh Chi - Phường Tân Định, TP.HCM',
-      'Hoàng Ty 73 Trần Não - Phường An Khánh, TP.HCM',
-      'Cơm Gà Thượng Hải'
+    const branches=['Hoàng Ty 74 Trương Quốc Dung - Phường Phú Nhuận, TP.HCM','Hoàng Ty 01 Nguyễn Hữu Cầu - Phường Tân Định, TP.HCM','Hoàng Ty 32 Hoa Mai - Phường Cầu Kiệu, TP.HCM','Hoàng Ty 38 Mạc Đĩnh Chi - Phường Tân Định, TP.HCM','Hoàng Ty 73 Trần Não - Phường An Khánh, TP.HCM','Cơm Gà Thượng Hải'];
+    const checklist=[
+      {title:'Khu vực ngoài nhà hàng / Đội xe',items:[[1,'Cổng rào: cửa cuốn, cửa xếp...'],[2,'Hàng rào, tường rào, mái hiên'],[3,'Bảng hiệu: alu, đèn led'],[4,'Vỉa hè xung quanh khuôn viên nhà hàng'],[5,'Tác phong, đồng phục đội xe']]},
+      {title:'Khu phục vụ khách hàng',items:[[6,'Đèn điện, máy lạnh'],[7,'Cửa kính, vách kính, vách tường, cửa sổ'],[9,'Bếp cồn, mâm tiếp món, mâm nước mắm + mắm nêm'],[10,'Thang máy, bàn tiếp thực'],[11,'Hộp đèn quảng cáo treo tường'],[12,'Vệ sinh, sắp xếp ngăn nắp bàn ghế'],[13,'Vệ sinh khay nước chấm, hũ ớt'],[14,'Vệ sinh hộp muỗng, đũa, mâm lấy đồ thêm'],[15,'Sàn nhà khô ráo, sạch sẽ'],[16,'Vệ sinh cầu thang, trần nhà'],[17,'Tác phong, đồng phục, bảng tên nhân viên'],[18,'Menu giấy, standee/menu điện tử: số lượng, bảo quản, vệ sinh'],[19,'Tình trạng tablet: pin, sắp xếp'],[20,'Quầy lễ tân, tủ, kệ, ghế; hệ thống máy chủ, máy giao hàng, điện thoại; vệ sinh bàn ghế tầng trệt, khay gia vị, muỗng đũa']]},
+      {title:'Khu vực bếp',items:[[22,'Dụng cụ chế biến: xoong nồi, vá, dao, thớt...'],[23,'Kệ, tủ inox, ngăn kéo tủ, bàn ra đồ'],[24,'Kiểm tra ngẫu nhiên tô, chén, dĩa'],[25,'Bếp nướng, lò cá lu'],[26,'Máng khói, quạt hút'],[27,'Kho gas, toàn bộ bếp khè'],[28,'Máy cắt thịt: vệ sinh, bảo trì'],[29,'Tác phong, đồng phục nhân viên'],[30,'Nước lèo, nước trụng luôn sẵn sàng'],[31,'Bảo quản thực phẩm có dùng màng bọc hay không'],[32,'Bếp chiên dầu có vớt cặn hay không'],[33,'Tất cả các loại cân: cân cơ, cân điện tử'],[34,'Bồn rửa: vòi nước, vệ sinh'],[35,'Vệ sinh khu vực làm cá lu'],[36,'Khu vực để rác']]},
+      {title:'Khu vực chè gỏi - đồ về - pha chế',items:[[37,'Ly, rổ để ly trà đá, ly mía, ly sinh tố'],[38,'Thùng đá, bồn rửa ly, vòi nước'],[39,'Thố, nắp, muỗng khúc bạch'],[40,'Các loại chè: đậu xanh, lựu, khúc bạch ra món'],[41,'Tủ mát pha chế, tủ chè, tủ dụng cụ chè gỏi, tủ mát đồ về'],[42,'Định lượng, số lượng toàn bộ các món ra đồ về'],[43,'Kệ, tủ inox, ngăn kéo tủ, bàn ra đồ'],[44,'Đồng phục và tác phong nhân viên đứng khâu: bao tay, nón, yếm, đảm bảo VSATTP'],[45,'Bàn ra chè, bàn cuốn gỏi, quy trình ra món đảm bảo VSATTP'],[46,'Quy trình bảo quản nguyên vật liệu'],[47,'Vệ sinh công cụ dụng cụ: máy mía, mâm pha chế'],[48,'Sàn nhà, khu vực để túi mang về'],[49,'Số lượng hàng tồn và bảo quản hàng qua ngày']]},
+      {title:'Khu vực nước chấm',items:[[53,'Kệ, tủ inox, ngăn kéo tủ, bàn ra đồ, sàn nhà'],[54,'Kiểm tra ngẫu nhiên tô, chén, dĩa'],[55,'Đồ chua, nước mắm, mắm nêm, dưa giá'],[56,'Tác phong, đồng phục nhân viên'],[57,'Quy trình ra món sẵn phục vụ khách: số lượng mắm, dưa giá, đồ chua, bún, bánh tráng; quy trình bảo quản nguyên vật liệu']]},
+      {title:'Khu vực rửa rau - rửa chén',items:[[58,'Kệ, tủ inox, ngăn kéo tủ, bàn để chén dĩa khu vực rửa chén'],[59,'Hoạt động máy rửa chén, bồn rửa chén'],[60,'Kiểm tra ngẫu nhiên tô, chén, dĩa'],[61,'Vệ sinh rổ để chén dĩa, rổ để muỗng đũa'],[62,'Kệ, tủ inox, ngăn kéo tủ, bàn để chén dĩa khu vực rau'],[63,'Bồn rửa: vòi nước, vệ sinh, máy ozone'],[64,'Kiểm tra ngẫu nhiên vệ sinh khay rau'],[65,'Định lượng rau ra mâm, tủ rau, hệ thống phun sương'],[66,'Quy trình bảo quản rau']]},
+      {title:'Khu vực toilet',items:[[67,'Gương soi, bồn cầu, sàn nhà, vách ngăn'],[68,'Bồn rửa mặt, vòi nước']]},
+      {title:'Khu vực sinh hoạt nhân viên',items:[[69,'Sàn phơi đồ, WC'],[70,'Đèn, quạt, thiết bị điện, rèm ngủ khu vực nhân viên'],[71,'Cầu thang lên xuống lầu 2, đổ rác'],[72,'Kệ giày dép nhân viên'],[73,'Vị trí miệng cống thoát nước']]}
     ];
-
-    const checklist = [
-      {title:'Khu vực ngoài nhà hàng / Đội xe', items:[
-        [1,'Cổng rào: cửa cuốn, cửa xếp...'], [2,'Hàng rào, tường rào, mái hiên'], [3,'Bảng hiệu: alu, đèn led'], [4,'Vỉa hè xung quanh khuôn viên nhà hàng'], [5,'Tác phong, đồng phục đội xe']
-      ]},
-      {title:'Khu phục vụ khách hàng', items:[
-        [6,'Đèn điện, máy lạnh'], [7,'Cửa kính, vách kính, vách tường, cửa sổ'], [9,'Bếp cồn, mâm tiếp món, mâm nước mắm + mắm nêm'], [10,'Thang máy, bàn tiếp thực'], [11,'Hộp đèn quảng cáo treo tường'], [12,'Vệ sinh, sắp xếp ngăn nắp bàn ghế'], [13,'Vệ sinh khay nước chấm, hũ ớt'], [14,'Vệ sinh hộp muỗng, đũa, mâm lấy đồ thêm'], [15,'Sàn nhà khô ráo, sạch sẽ'], [16,'Vệ sinh cầu thang, trần nhà'], [17,'Tác phong, đồng phục, bảng tên nhân viên'], [18,'Menu giấy, standee/menu điện tử: số lượng, bảo quản, vệ sinh'], [19,'Tình trạng tablet: pin, sắp xếp'], [20,'Quầy lễ tân, tủ, kệ, ghế; hệ thống máy chủ, máy giao hàng, điện thoại; vệ sinh bàn ghế tầng trệt, khay gia vị, muỗng đũa']
-      ]},
-      {title:'Khu vực bếp', items:[
-        [22,'Dụng cụ chế biến: xoong nồi, vá, dao, thớt...'], [23,'Kệ, tủ inox, ngăn kéo tủ, bàn ra đồ'], [24,'Kiểm tra ngẫu nhiên tô, chén, dĩa'], [25,'Bếp nướng, lò cá lu'], [26,'Máng khói, quạt hút'], [27,'Kho gas, toàn bộ bếp khè'], [28,'Máy cắt thịt: vệ sinh, bảo trì'], [29,'Tác phong, đồng phục nhân viên'], [30,'Nước lèo, nước trụng luôn sẵn sàng'], [31,'Bảo quản thực phẩm có dùng màng bọc hay không'], [32,'Bếp chiên dầu có vớt cặn hay không'], [33,'Tất cả các loại cân: cân cơ, cân điện tử'], [34,'Bồn rửa: vòi nước, vệ sinh'], [35,'Vệ sinh khu vực làm cá lu'], [36,'Khu vực để rác']
-      ]},
-      {title:'Khu vực chè gỏi - đồ về - pha chế', items:[
-        [37,'Ly, rổ để ly trà đá, ly mía, ly sinh tố'], [38,'Thùng đá, bồn rửa ly, vòi nước'], [39,'Thố, nắp, muỗng khúc bạch'], [40,'Các loại chè: đậu xanh, lựu, khúc bạch ra món'], [41,'Tủ mát pha chế, tủ chè, tủ dụng cụ chè gỏi, tủ mát đồ về'], [42,'Định lượng, số lượng toàn bộ các món ra đồ về'], [43,'Kệ, tủ inox, ngăn kéo tủ, bàn ra đồ'], [44,'Đồng phục và tác phong nhân viên đứng khâu: bao tay, nón, yếm, đảm bảo VSATTP'], [45,'Bàn ra chè, bàn cuốn gỏi, quy trình ra món đảm bảo VSATTP'], [46,'Quy trình bảo quản nguyên vật liệu'], [47,'Vệ sinh công cụ dụng cụ: máy mía, mâm pha chế'], [48,'Sàn nhà, khu vực để túi mang về'], [49,'Số lượng hàng tồn và bảo quản hàng qua ngày']
-      ]},
-      {title:'Khu vực nước chấm', items:[
-        [53,'Kệ, tủ inox, ngăn kéo tủ, bàn ra đồ, sàn nhà'], [54,'Kiểm tra ngẫu nhiên tô, chén, dĩa'], [55,'Đồ chua, nước mắm, mắm nêm, dưa giá'], [56,'Tác phong, đồng phục nhân viên'], [57,'Quy trình ra món sẵn phục vụ khách: số lượng mắm, dưa giá, đồ chua, bún, bánh tráng; quy trình bảo quản nguyên vật liệu']
-      ]},
-      {title:'Khu vực rửa rau - rửa chén', items:[
-        [58,'Kệ, tủ inox, ngăn kéo tủ, bàn để chén dĩa khu vực rửa chén'], [59,'Hoạt động máy rửa chén, bồn rửa chén'], [60,'Kiểm tra ngẫu nhiên tô, chén, dĩa'], [61,'Vệ sinh rổ để chén dĩa, rổ để muỗng đũa'], [62,'Kệ, tủ inox, ngăn kéo tủ, bàn để chén dĩa khu vực rau'], [63,'Bồn rửa: vòi nước, vệ sinh, máy ozone'], [64,'Kiểm tra ngẫu nhiên vệ sinh khay rau'], [65,'Định lượng rau ra mâm, tủ rau, hệ thống phun sương'], [66,'Quy trình bảo quản rau']
-      ]},
-      {title:'Khu vực toilet', items:[
-        [67,'Gương soi, bồn cầu, sàn nhà, vách ngăn'], [68,'Bồn rửa mặt, vòi nước']
-      ]},
-      {title:'Khu vực sinh hoạt nhân viên', items:[
-        [69,'Sàn phơi đồ, WC'], [70,'Đèn, quạt, thiết bị điện, rèm ngủ khu vực nhân viên'], [71,'Cầu thang lên xuống lầu 2, đổ rác'], [72,'Kệ giày dép nhân viên'], [73,'Vị trí miệng cống thoát nước']
-      ]}
-    ];
-
-    const $ = id => document.getElementById(id);
-    const STORAGE_KEY = 'ht_clean_checklist_v6';
-    let saveTimer = null;
-    let reportImageDataUrl = '';
-    let reportImageBlob = null;
-
-    function init(){
-      branches.forEach(b => {
-        const o = document.createElement('option');
-        o.textContent = b;
-        o.value = b;
-        $('branch').appendChild(o);
-      });
-      $('date').value = new Date().toISOString().slice(0,10);
-      renderSections();
-      loadDraft();
-      bindInputs();
-      updateStats();
-    }
-
-    function bindInputs(){
-      document.querySelectorAll('input,select,textarea').forEach(el => {
-        el.addEventListener('input', () => {
-          updateStats();
-          autoSave();
-        });
-        el.addEventListener('change', () => {
-          updateStats();
-          autoSave();
-        });
-      });
-    }
-
-    function renderSections(){
-      const root = $('sections');
-      root.innerHTML = '';
-      checklist.forEach((sec, si) => {
-        const card = document.createElement('section');
-        card.className = 'section';
-        card.innerHTML = `
-          <div class="section-head"><h2>${sec.title}</h2><div class="section-count">${sec.items.length} mục</div></div>
-          <div class="items"></div>
-        `;
-        const list = card.querySelector('.items');
-        sec.items.forEach(([id,text]) => {
-          const row = document.createElement('div');
-          row.className = 'item';
-          row.dataset.item = id;
-          row.innerHTML = `
-            <div class="no">${id}</div>
-            <div class="item-title">${text}</div>
-            <div class="controls">
-              <label class="pill"><input type="radio" name="st_${id}" value="Đạt"><span class="ok-bg">Đạt</span></label>
-              <label class="pill"><input type="radio" name="st_${id}" value="Không đạt"><span class="bad-bg">K. đạt</span></label>
-              <label class="pill"><input type="radio" name="st_${id}" value="N/A"><span class="na-bg">N/A</span></label>
-            </div>
-            <div class="note"><input name="note_${id}" placeholder="Ghi chú / hình ảnh / yêu cầu xử lý..." /></div>
-          `;
-          list.appendChild(row);
-        });
-        root.appendChild(card);
-      });
-    }
-
-    function getData(){
-      const items = [];
-      checklist.forEach(sec => sec.items.forEach(([id,text]) => {
-        const checked = document.querySelector(`input[name="st_${id}"]:checked`);
-        const noteEl = document.querySelector(`input[name="note_${id}"]`);
-        items.push({
-          id,
-          section: sec.title,
-          text,
-          status: checked ? checked.value : '',
-          note: noteEl ? noteEl.value.trim() : ''
-        });
-      }));
-      return {
-        branch: $('branch').value,
-        inspector: $('inspector').value.trim(),
-        date: $('date').value,
-        shift: $('shift').value,
-        owner: $('owner').value.trim(),
-        deadline: $('deadline').value,
-        level: $('level').value,
-        conclusion: $('conclusion').value.trim(),
-        actionPlan: $('actionPlan').value.trim(),
-        items
-      };
-    }
-
-    function setData(data){
-      ['branch','inspector','date','shift','owner','deadline','level','conclusion','actionPlan'].forEach(id => {
-        if (data[id] !== undefined && $(id)) $(id).value = data[id];
-      });
-      (data.items || []).forEach(it => {
-        if (it.status) {
-          const radio = document.querySelector(`input[name="st_${it.id}"][value="${it.status}"]`);
-          if (radio) radio.checked = true;
-        }
-        const noteEl = document.querySelector(`input[name="note_${it.id}"]`);
-        if (noteEl) noteEl.value = it.note || '';
-      });
-    }
-
-    function summarize(data = getData()){
-      const total = data.items.length;
-      const ok = data.items.filter(i => i.status === 'Đạt').length;
-      const bad = data.items.filter(i => i.status === 'Không đạt');
-      const na = data.items.filter(i => i.status === 'N/A').length;
-      const pending = data.items.filter(i => !i.status).length;
-      const denominator = total - na;
-      const score = denominator > 0 ? Math.round(ok / denominator * 100) : 0;
-      return { total, ok, bad, na, pending, denominator, score };
-    }
-
-    function updateStats(){
-      const s = summarize();
-      $('stats').innerHTML = `
-        <div class="stat"><b>${s.total}</b><span>Tổng mục</span></div>
-        <div class="stat"><b class="ok">${s.ok}</b><span>Đạt</span></div>
-        <div class="stat"><b class="bad">${s.bad.length}</b><span>Không đạt</span></div>
-        <div class="stat"><b class="na">${s.na}</b><span>N/A</span></div>
-        <div class="stat"><b>${s.score}%</b><span>Tỷ lệ đạt</span></div>
-      `;
-    }
-
-    function autoSave(){
-      clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
-      }, 300);
-    }
-
-    function saveDraft(){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
-      alert('Đã lưu tạm trên máy này.');
-    }
-
-    function loadDraft(){
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      try {
-        setData(JSON.parse(raw));
-      } catch(e) {
-        console.warn(e);
-      }
-    }
-
-    function clearForm(){
-      if (!confirm('Làm mới toàn bộ checklist và xóa các mục đã tick?')) return;
-      localStorage.removeItem(STORAGE_KEY);
-      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-      document.querySelectorAll('input[name^="note_"]').forEach(i => i.value = '');
-      ['inspector','owner','deadline','conclusion','actionPlan'].forEach(id => $(id).value = '');
-      $('branch').value = '';
-      $('date').value = new Date().toISOString().slice(0,10);
-      $('shift').value = 'Sáng';
-      $('level').value = 'Bình thường';
-      updateStats();
-      closeReport();
-      clearReportImage();
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
-
-    function clearReportImage(){
-      reportImageDataUrl = '';
-      reportImageBlob = null;
-      $('reportPreview').style.display = 'none';
-      $('reportPreview').src = '';
-      $('previewPlaceholder').style.display = 'block';
-      $('imageStatus').textContent = 'Ảnh chưa được tạo.';
-      $('btnDownloadImage').disabled = true;
-      $('btnShareImage2').disabled = true;
-      $('btnShareWhatsApp').disabled = false;
-    }
-
-    function downloadJson(){
-      const d = getData();
-      const blob = new Blob([JSON.stringify(d, null, 2)], {type:'application/json'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `checklist-ve-sinh-${slugify(d.branch || 'chi-nhanh')}-${d.date || ''}.json`;
-      a.click();
-      URL.revokeObjectURL(a.href);
-    }
-
-    function slugify(str){
-      return String(str || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase();
-    }
-
-    function escapeHtml(str){
-      return String(str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    }
-
-    function buildReportHtml(){
-      const d = getData();
-      const s = summarize(d);
-      const statusText = s.score >= 90 ? 'Đạt tốt' : s.score >= 75 ? 'Cần lưu ý' : 'Cần khắc phục';
-      const badListClass = s.bad.length > 8 ? 'capture-list columns-2' : 'capture-list';
-      const badItemsHtml = s.bad.length
-        ? `<ol class="${badListClass}">${s.bad.map(i => `<li><b>${i.id}. ${escapeHtml(i.text)}</b>${i.note ? `<span class="note-text">Ghi chú: ${escapeHtml(i.note)}</span>` : ''}</li>`).join('')}</ol>`
-        : '<div style="color:var(--ok);font-weight:900">Không có mục không đạt.</div>';
-
-      return `
-        <div class="capture-top">
-          <div class="capture-brand">
-            <div class="mini-seal">HT</div>
-            <div>
-              <h3>Báo cáo checklist vệ sinh định kỳ</h3>
-              <p>Hoàng Ty / Cơm Gà Thượng Hải · Hotline 1900 0091 · hoangty.vn</p>
-            </div>
-          </div>
-          <div class="capture-status">${statusText}</div>
-        </div>
-
-        <div class="capture-summary">
-          <div class="capture-tile"><b>${s.total}</b><span>Tổng mục</span></div>
-          <div class="capture-tile"><b class="ok">${s.ok}/${s.denominator}</b><span>Đạt</span></div>
-          <div class="capture-tile"><b class="bad">${s.bad.length}</b><span>Không đạt</span></div>
-          <div class="capture-tile"><b class="na">${s.na}</b><span>N/A</span></div>
-          <div class="capture-tile"><b>${s.score}%</b><span>Tỷ lệ đạt</span></div>
-        </div>
-
-        <div class="capture-grid">
-          <div class="capture-block">
-            <h4>Thông tin kiểm tra</h4>
-            <div class="capture-meta-line"><b>Chi nhánh:</b> ${escapeHtml(d.branch || 'Chưa chọn')}</div>
-            <div class="capture-meta-line"><b>Ngày / ca:</b> ${escapeHtml(d.date || '')} - ${escapeHtml(d.shift || '')}</div>
-            <div class="capture-meta-line"><b>Người kiểm tra:</b> ${escapeHtml(d.inspector || '')}</div>
-            <div class="capture-meta-line"><b>Mức độ:</b> ${escapeHtml(d.level || '')}</div>
-            ${s.pending ? `<div class="capture-warning">Còn ${s.pending} mục chưa tick.</div>` : '<div style="color:var(--ok);font-weight:900;margin-top:8px">Đã tick đủ tất cả các mục.</div>'}
-          </div>
-          <div class="capture-block">
-            <h4>Kết luận / Khắc phục</h4>
-            <div class="capture-meta-line"><b>Kết luận:</b> ${escapeHtml(d.conclusion || 'Chưa ghi')}</div>
-            <div class="capture-meta-line"><b>Khắc phục:</b> ${escapeHtml(d.actionPlan || 'Chưa ghi')}</div>
-            <div class="capture-meta-line"><b>Phụ trách:</b> ${escapeHtml(d.owner || 'Chưa ghi')}</div>
-            <div class="capture-meta-line"><b>Hạn xử lý:</b> ${escapeHtml(d.deadline || 'Chưa ghi')}</div>
-          </div>
-        </div>
-
-        <div class="capture-block" style="margin-top:12px">
-          <h4>Các mục không đạt</h4>
-          ${badItemsHtml}
-        </div>
-
-        <div class="capture-footer">
-          <div>Ảnh tổng hợp để gửi WhatsApp group</div>
-          <div>Tạo lúc: ${new Date().toLocaleString('vi-VN')}</div>
-        </div>
-      `;
-    }
-
-    function reportText(){
-      const d = getData();
-      const s = summarize(d);
-      let txt = `BÁO CÁO CHECKLIST VỆ SINH\nChi nhánh: ${d.branch || ''}\nNgày: ${d.date || ''} - Ca: ${d.shift || ''}\nNgười kiểm tra: ${d.inspector || ''}\nKết quả: Đạt ${s.ok}/${s.denominator} mục, Không đạt ${s.bad.length} mục, N/A ${s.na} mục\nMức độ: ${d.level || ''}`;
-      if (s.pending) txt += `\nCòn ${s.pending} mục chưa tick`;
-      if (s.bad.length) {
-        txt += `\n\nCÁC MỤC KHÔNG ĐẠT:`;
-        txt += '\n' + s.bad.map(i => `- ${i.id}. ${i.text}${i.note ? ` | Ghi chú: ${i.note}` : ''}`).join('\n');
-      }
-      txt += `\n\nKết luận: ${d.conclusion || ''}\nYêu cầu khắc phục: ${d.actionPlan || ''}\nPhụ trách: ${d.owner || ''}\nHạn xử lý: ${d.deadline || ''}`;
-      return txt;
-    }
-
-    function renderReportCard(){
-      $('reportCapture').innerHTML = buildReportHtml();
-      $('whatsappText').value = reportText();
-    }
-
-    function showFinalReport(){
-      updateStats();
-      renderReportCard();
-      $('reportPanel').classList.add('show');
-    }
-
-    function closeReport(){
-      $('reportPanel').classList.remove('show');
-    }
-
-    async function finishReport(){
-      updateStats();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(getData()));
-      showFinalReport();
-      await generateReportImage(false);
-    }
-
-    async function generateReportImage(showAlert){
-      showFinalReport();
-      renderReportCard();
-      $('imageStatus').innerHTML = '<span class="loading-pill"><span class="spinner"></span>Đang tạo ảnh báo cáo...</span>';
-      $('btnDownloadImage').disabled = true;
-      $('btnShareImage2').disabled = true;
-      try {
-        await new Promise(resolve => setTimeout(resolve, 80));
-        const canvas = await html2canvas($('reportCapture'), {
-          backgroundColor: '#fffaf1',
-          scale: 2,
-          useCORS: true,
-          logging: false,
-          windowWidth: $('reportCapture').scrollWidth,
-          width: $('reportCapture').scrollWidth,
-          scrollX: 0,
-          scrollY: -window.scrollY
-        });
-        reportImageDataUrl = canvas.toDataURL('image/png');
-        reportImageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1));
-        $('reportPreview').src = reportImageDataUrl;
-        $('reportPreview').style.display = 'block';
-        $('previewPlaceholder').style.display = 'none';
-        $('btnDownloadImage').disabled = false;
-        $('btnShareImage2').disabled = false;
-        $('imageStatus').textContent = 'Đã tạo xong ảnh báo cáo. Có thể tải hoặc chia sẻ qua WhatsApp.';
-        if (showAlert) alert('Đã tạo xong ảnh báo cáo.');
-      } catch (err) {
-        console.error(err);
-        $('imageStatus').textContent = 'Không tạo được ảnh. Mày thử bấm lại hoặc reload trang.';
-        if (showAlert) alert('Không tạo được ảnh báo cáo.');
-      }
-    }
-
-    function downloadReportImage(){
-      if (!reportImageDataUrl) {
-        alert('Chưa có ảnh báo cáo.');
-        return;
-      }
-      const d = getData();
-      const a = document.createElement('a');
-      a.href = reportImageDataUrl;
-      a.download = `bao-cao-checklist-${slugify(d.branch || 'chi-nhanh')}-${d.date || ''}.png`;
-      a.click();
-    }
-
-    async function shareReportImage(){
-      if (!reportImageBlob) {
-        await generateReportImage(false);
-      }
-      const text = reportText();
-      try {
-        if (reportImageBlob) {
-          const d = getData();
-          const file = new File([reportImageBlob], `bao-cao-checklist-${slugify(d.branch || 'chi-nhanh')}-${d.date || ''}.png`, {type:'image/png'});
-          if (navigator.canShare && navigator.canShare({files:[file]})) {
-            await navigator.share({
-              files: [file],
-              title: 'Báo cáo checklist vệ sinh',
-              text
-            });
-            return;
-          }
-        }
-        if (navigator.share) {
-          await navigator.share({ title: 'Báo cáo checklist vệ sinh', text });
-          return;
-        }
-        window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
-        alert('Thiết bị này không hỗ trợ gửi ảnh trực tiếp từ trình duyệt. Tao đã mở WhatsApp với phần nội dung text. Muốn gửi ảnh thì bấm Tải ảnh rồi đính kèm thủ công.');
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    async function copyReport(){
-      const text = reportText();
-      try {
-        await navigator.clipboard.writeText(text);
-        alert('Đã copy nội dung báo cáo.');
-      } catch(e) {
-        prompt('Copy nội dung báo cáo:', text);
-      }
-    }
-
-    function scrollToFirstBad(){
-      const bad = document.querySelector('input[value="Không đạt"]:checked');
-      if (!bad) {
-        alert('Chưa có mục Không đạt.');
-        return;
-      }
-      bad.closest('.item').scrollIntoView({behavior:'smooth', block:'center'});
-    }
-
+    const $=id=>document.getElementById(id), KEY='ht_clean_checklist_pdf_v7';
+    function init(){branches.forEach(b=>{let o=document.createElement('option');o.value=b;o.textContent=b;$('branch').appendChild(o)});$('date').value=new Date().toISOString().slice(0,10);renderSections();loadDraft();bindInputs();updateStats()}
+    function bindInputs(){document.querySelectorAll('input,select,textarea').forEach(el=>{el.addEventListener('input',()=>{updateStats();autoSave()});el.addEventListener('change',()=>{updateStats();autoSave()})})}
+    function renderSections(){let root=$('sections');root.innerHTML='';checklist.forEach(sec=>{let s=document.createElement('section');s.className='section';s.innerHTML=`<div class="section-head"><h2>${sec.title}</h2><div class="section-count">${sec.items.length} mục</div></div><div class="items"></div>`;let list=s.querySelector('.items');sec.items.forEach(([id,text])=>{let row=document.createElement('div');row.className='item';row.innerHTML=`<div class="no">${id}</div><div class="item-title">${text}</div><div class="controls"><label class="pill"><input type="radio" name="st_${id}" value="Đạt"><span class="ok-bg">Đạt</span></label><label class="pill"><input type="radio" name="st_${id}" value="Không đạt"><span class="bad-bg">K. đạt</span></label><label class="pill"><input type="radio" name="st_${id}" value="N/A"><span class="na-bg">N/A</span></label></div><div class="note"><input name="note_${id}" placeholder="Ghi chú / yêu cầu xử lý..."></div>`;list.appendChild(row)});root.appendChild(s)})}
+    function getData(){let items=[];checklist.forEach(sec=>sec.items.forEach(([id,text])=>{let c=document.querySelector(`input[name="st_${id}"]:checked`),n=document.querySelector(`input[name="note_${id}"]`);items.push({id,section:sec.title,text,status:c?c.value:'',note:n?n.value.trim():''})}));return {branch:$('branch').value,inspector:$('inspector').value.trim(),date:$('date').value,shift:$('shift').value,owner:$('owner').value.trim(),deadline:$('deadline').value,level:$('level').value,conclusion:$('conclusion').value.trim(),actionPlan:$('actionPlan').value.trim(),items}}
+    function setData(d){['branch','inspector','date','shift','owner','deadline','level','conclusion','actionPlan'].forEach(id=>{if(d[id]!==undefined&&$(id))$(id).value=d[id]});(d.items||[]).forEach(it=>{if(it.status){let r=document.querySelector(`input[name="st_${it.id}"][value="${it.status}"]`);if(r)r.checked=true}let n=document.querySelector(`input[name="note_${it.id}"]`);if(n)n.value=it.note||''})}
+    function sum(d=getData()){let total=d.items.length,ok=d.items.filter(i=>i.status==='Đạt').length,bad=d.items.filter(i=>i.status==='Không đạt'),na=d.items.filter(i=>i.status==='N/A').length,pending=d.items.filter(i=>!i.status).length,den=total-na,score=den?Math.round(ok/den*100):0;return{total,ok,bad,na,pending,den,score}}
+    function updateStats(){let s=sum();$('stats').innerHTML=`<div class="stat"><b>${s.total}</b><span>Tổng mục</span></div><div class="stat"><b class="ok">${s.ok}</b><span>Đạt</span></div><div class="stat"><b class="bad">${s.bad.length}</b><span>Không đạt</span></div><div class="stat"><b class="na">${s.na}</b><span>N/A</span></div><div class="stat"><b>${s.score}%</b><span>Tỷ lệ đạt</span></div>`}
+    let saveTimer;function autoSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>localStorage.setItem(KEY,JSON.stringify(getData())),300)}function saveDraft(){localStorage.setItem(KEY,JSON.stringify(getData()));alert('Đã lưu tạm trên máy này.')}function loadDraft(){try{let raw=localStorage.getItem(KEY);if(raw)setData(JSON.parse(raw))}catch(e){}}
+    function clearForm(){if(!confirm('Làm mới toàn bộ checklist và xóa các mục đã tick?'))return;localStorage.removeItem(KEY);document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);document.querySelectorAll('input[name^="note_"]').forEach(i=>i.value='');['inspector','owner','deadline','conclusion','actionPlan'].forEach(id=>$(id).value='');$('branch').value='';$('date').value=new Date().toISOString().slice(0,10);$('shift').value='Sáng';$('level').value='Bình thường';updateStats();closeReport();window.scrollTo({top:0,behavior:'smooth'})}
+    function esc(x){return String(x||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function slug(x){return String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-+|-+$/g,'').toLowerCase()}
+    function reportHtml(pdf=false){let d=getData(),s=sum(d),status=s.score>=90?'Đạt tốt':s.score>=75?'Cần lưu ý':'Cần khắc phục',bad=s.bad.length?s.bad.map(i=>`<li><b>${i.id}. ${esc(i.text)}</b>${i.note?`<br><span style="color:#666">Ghi chú: ${esc(i.note)}</span>`:''}</li>`).join(''):'<li style="color:#157347;font-weight:900">Không có mục không đạt.</li>';return `<div class="${pdf?'pdf-head':'report-title'}"><div><h${pdf?'1':'3'}>Báo cáo checklist vệ sinh định kỳ</h${pdf?'1':'3'}><p>Hoàng Ty / Cơm Gà Thượng Hải · Hotline 1900 0091 · hoangty.vn</p></div><div class="${pdf?'pdf-pill':'pdf-pill'}">${status}</div></div><div class="${pdf?'pdf-summary':'report-summary'}"><div class="${pdf?'pdf-tile':'tile'}"><b>${s.total}</b><span>Tổng mục</span></div><div class="${pdf?'pdf-tile':'tile'}"><b style="color:#157347">${s.ok}/${s.den}</b><span>Đạt</span></div><div class="${pdf?'pdf-tile':'tile'}"><b style="color:#b42318">${s.bad.length}</b><span>Không đạt</span></div><div class="${pdf?'pdf-tile':'tile'}"><b>${s.na}</b><span>N/A</span></div><div class="${pdf?'pdf-tile':'tile'}"><b>${s.score}%</b><span>Tỷ lệ đạt</span></div></div><div class="${pdf?'pdf-grid':'report-grid'}"><div class="${pdf?'pdf-block':'report-block'}"><h${pdf?'2':'4'}>Thông tin kiểm tra</h${pdf?'2':'4'}><div><b>Chi nhánh:</b> ${esc(d.branch||'Chưa chọn')}</div><div><b>Ngày / ca:</b> ${esc(d.date)} - ${esc(d.shift)}</div><div><b>Người kiểm tra:</b> ${esc(d.inspector)}</div><div><b>Mức độ:</b> ${esc(d.level)}</div>${s.pending?`<div style="color:#b42318;font-weight:900;margin-top:6px">Còn ${s.pending} mục chưa tick.</div>`:''}</div><div class="${pdf?'pdf-block':'report-block'}"><h${pdf?'2':'4'}>Kết luận / Khắc phục</h${pdf?'2':'4'}><div><b>Kết luận:</b> ${esc(d.conclusion||'Chưa ghi')}</div><div><b>Khắc phục:</b> ${esc(d.actionPlan||'Chưa ghi')}</div><div><b>Phụ trách:</b> ${esc(d.owner||'Chưa ghi')}</div><div><b>Hạn xử lý:</b> ${esc(d.deadline||'Chưa ghi')}</div></div></div><div class="${pdf?'pdf-block':'report-block'}"><h${pdf?'2':'4'}>Các mục không đạt</h${pdf?'2':'4'}><ol class="${pdf?'pdf-list':'bad-list'}">${bad}</ol></div>${pdf?`<div class="pdf-foot"><span>PDF báo cáo tổng kết, không bao gồm full checklist dài.</span><span>Tạo lúc: ${new Date().toLocaleString('vi-VN')}</span></div>`:''}`}
+    function showReport(){updateStats();$('reportPreview').innerHTML=reportHtml(false);$('pdfReport').innerHTML=reportHtml(true);$('modal').classList.add('show')}function closeReport(){$('modal').classList.remove('show')}function finishReport(){localStorage.setItem(KEY,JSON.stringify(getData()));showReport()}
+    async function makePdfBlob(){showReport();let opt={margin:[8,8,8,8],filename:fileName(),image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all','css','legacy']}};return await html2pdf().set(opt).from($('pdfReport')).outputPdf('blob')}
+    function fileName(){let d=getData();return `bao-cao-checklist-${slug(d.branch||'chi-nhanh')}-${d.date||''}.pdf`}
+    async function downloadPdf(){try{let blob=await makePdfBlob(),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fileName();a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}catch(e){alert('Không tạo được PDF. Kiểm tra mạng rồi bấm lại.')}}
+    async function sharePdfWhatsApp(){try{let blob=await makePdfBlob(),file=new File([blob],fileName(),{type:'application/pdf'});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Báo cáo checklist vệ sinh'});return}await downloadPdf();alert('Máy/trình duyệt này chưa hỗ trợ gửi PDF trực tiếp. Tao đã tải PDF xuống, mày gửi file đó vào WhatsApp group.')}catch(e){console.log(e)}}
+    function downloadJson(){let d=getData(),blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`checklist-ve-sinh-${slug(d.branch||'chi-nhanh')}-${d.date||''}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+    function scrollToFirstBad(){let bad=document.querySelector('input[value="Không đạt"]:checked');if(!bad){alert('Chưa có mục Không đạt.');return}bad.closest('.item').scrollIntoView({behavior:'smooth',block:'center'})}
     init();
   </script>
 </body>
