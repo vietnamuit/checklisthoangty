@@ -267,9 +267,85 @@
       .report-actions{justify-content:flex-start}
       .report-summary{grid-template-columns:repeat(2,1fr)}
     }
+
+    .login-lock{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      background:linear-gradient(180deg,#f9f4ec 0%,#efe3d2 100%);
+    }
+    .login-box{
+      width:min(420px,100%);
+      background:#fffaf2;
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:0 22px 70px rgba(38,26,19,.20);
+      padding:24px;
+      text-align:center;
+    }
+    .login-logo{
+      width:62px;
+      height:62px;
+      border-radius:50%;
+      margin:0 auto 14px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(145deg,var(--brand),#4b1d11);
+      color:#fff;
+      font-weight:900;
+      font-size:24px;
+    }
+    .login-box h2{
+      margin:0 0 8px;
+      font-size:22px;
+      text-transform:uppercase;
+    }
+    .login-box p{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+    .login-box input{
+      text-align:center;
+      font-weight:800;
+      letter-spacing:.5px;
+      font-size:18px;
+    }
+    .login-error{
+      display:none;
+      color:var(--bad);
+      font-weight:850;
+      font-size:13px;
+      margin-top:10px;
+    }
+    .login-box .btn{
+      width:100%;
+      margin-top:12px;
+    }
+    body.locked{
+      overflow:hidden;
+    }
+
   </style>
 </head>
-<body>
+<body class="locked">
+
+  <div class="login-lock" id="loginLock">
+    <div class="login-box">
+      <div class="login-logo">HT</div>
+      <h2>Checklist nội bộ</h2>
+      <p>Nhập mật khẩu để truy cập checklist kiểm tra vệ sinh.</p>
+      <input id="passwordInput" type="password" placeholder="Nhập mật khẩu" autocomplete="current-password" />
+      <button class="btn" onclick="checkPassword()">Đăng nhập</button>
+      <div class="login-error" id="loginError">Sai mật khẩu. Kiểm tra lại nhé.</div>
+    </div>
+  </div>
+
   <header class="topbar">
     <div class="topbar-inner">
       <div class="seal">HT</div>
@@ -741,6 +817,40 @@
       }
       bad.closest('.item').scrollIntoView({behavior:'smooth', block:'center'});
     }
+
+
+    const APP_PASSWORD = 'HT686868';
+
+    function unlockApp(){
+      const lock = document.getElementById('loginLock');
+      if (lock) lock.style.display = 'none';
+      document.body.classList.remove('locked');
+      sessionStorage.setItem('ht_checklist_unlocked', '1');
+    }
+
+    function checkPassword(){
+      const input = document.getElementById('passwordInput');
+      const err = document.getElementById('loginError');
+      if ((input.value || '').trim() === APP_PASSWORD) {
+        unlockApp();
+      } else {
+        if (err) err.style.display = 'block';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('passwordInput');
+      if (sessionStorage.getItem('ht_checklist_unlocked') === '1') {
+        unlockApp();
+      } else if (input) {
+        input.focus();
+        input.addEventListener('keydown', e => {
+          if (e.key === 'Enter') checkPassword();
+        });
+      }
+    });
 
     init();
   </script>
