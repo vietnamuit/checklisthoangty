@@ -135,8 +135,11 @@
     .stat b{display:block;font-size:23px;line-height:1;margin-bottom:6px}
     .stat span{font-size:12px;font-weight:850;color:var(--muted)}
     .ok{color:var(--ok)}.bad{color:var(--bad)}
-    .section{margin-top:15px;overflow:hidden;border-radius:17px;box-shadow:var(--shadow)}
+    .section{margin-top:15px;overflow:visible;border-radius:17px;box-shadow:var(--shadow)}
     .section-head{
+      position:sticky;
+      top:var(--sticky-offset, 118px);
+      z-index:12;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -144,6 +147,7 @@
       padding:13px 15px;
       background:linear-gradient(135deg,#412118,var(--brand));
       color:#fff;
+      box-shadow:0 8px 18px rgba(38,26,19,.12);
     }
     .section-head h2{margin:0;font-size:15px;line-height:1.25;text-transform:uppercase}
     .section-count{font-size:12px;font-weight:900;background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.22);padding:6px 9px;border-radius:999px;white-space:nowrap}
@@ -246,6 +250,7 @@
     .bad-list li{margin-bottom:7px}
     .muted{color:var(--muted)}
     @media(max-width:760px){
+      :root{--sticky-offset:196px;}
       .topbar{padding-left:12px;padding-right:12px}
       .topbar-inner{grid-template-columns:38px 1fr;gap:9px}
       .seal{width:38px;height:38px;font-size:16px}
@@ -346,7 +351,7 @@
     </div>
   </div>
 
-  <header class="topbar">
+  <header class="topbar" id="topbar">
     <div class="topbar-inner">
       <div class="seal">HT</div>
       <div class="title">
@@ -462,6 +467,14 @@
       return out;
     }
 
+
+    function setStickyOffset(){
+      const topbar = document.getElementById('topbar');
+      if (!topbar) return;
+      const h = Math.ceil(topbar.getBoundingClientRect().height);
+      document.documentElement.style.setProperty('--sticky-offset', (h + 6) + 'px');
+    }
+
     function init(){
       branches.forEach(b => {
         const o = document.createElement('option');
@@ -474,6 +487,9 @@
       loadDraft();
       bindInputs();
       updateStats();
+      setStickyOffset();
+      window.addEventListener('resize', setStickyOffset);
+      window.addEventListener('orientationchange', () => setTimeout(setStickyOffset, 250));
     }
 
     function bindInputs(){
